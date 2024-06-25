@@ -902,6 +902,21 @@
         SubCrewHeadIG = 3801918077, // 0xE29CAA7D
         AhronWardIG = 927014855, // 0x37411FC7
         YusufAmirIG = 1608114028, // 0x5FD9DF6C
-        JaywalkerIG = 1283622549 // 0x4C828695
+        JaywalkerIG = 1283622549, // 0x4C828695
+        BountyTarget_04IG = 3921981556, // 0xE9C4B074
+        Mechanic03IG = 1349590050, // 0x50711C22
+        BountyTarget06IG = 2561707597, // 0x98B08E4D
+        BountyTarget02IG = 1574377635, // 0x5DD718A3
+        MaudeBFIG = 1581050842, // 0x5E3CEBDA
+        BountyTarget01IG = 2765596315, // 0xA4D7A69B
+        Zombie02GMM = 2555681988, // 0x98549CC4
+        BailOffice01SMM = 173935423, // 0xA5E0B3F
+        BountyTarget03IG = 2408643606, // 0x8F90FC16
+        JenetteEIG = 1457317744, // 0x56DCE770
+        Zombie03GMM = 396172111, // 0x179D1B4F
+        Zombie01GMM = 3323689041, // 0xC61B7851
+        BountyTarget05IG = 3690927337, // 0xDBFF14E9
+        JenetteECSB = 4095622650, // 0xF41E3DFA
+        Maude02CSB = 1928962749 // 0x72F9A2BD
     }
 }

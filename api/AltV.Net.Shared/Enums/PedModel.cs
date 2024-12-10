@@ -917,6 +917,16 @@
         Zombie01GMM = 3323689041, // 0xC61B7851
         BountyTarget05IG = 3690927337, // 0xDBFF14E9
         JenetteECSB = 4095622650, // 0xF41E3DFA
-        Maude02CSB = 1928962749 // 0x72F9A2BD
+        Maude02CSB = 1928962749, // 0x72F9A2BD
+        JodiMarshallIG = 1043886488, // 0x3E387198
+    	GuadalopeIG = 2630588041, // 0x9CCB9689
+    	HelmsmanPavel02IG = 2162565007, // 0x80E61F8F
+    	HelmsmanPavel02CSB = 1591881099, // 0x5EE22D8B
+    	CarClub02AFY = 238774192, // 0xE3B67B0
+    	CarClub02AMY = 2790225070, // 0xA64F74AE
+    	ArmsManufac01IG = 999842350, // 0x3B98622E
+    	Oscar02IG = 1042644412, // 0x3E257DBC
+    	Oscar02CSB = 3265229602, // 0xC29F7322
+    	JodiMarshallCSB = 2447125353 // 0x91DC2B69
     }
 }

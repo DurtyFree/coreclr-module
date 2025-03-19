@@ -143,6 +143,8 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, uint, nint> Core_GetCheckpointByGameID { get; }
         public delegate* unmanaged[Cdecl]<nint, int*, nint> Core_GetClientPath { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, byte> Core_GetConfigFlag { get; }
+        public delegate* unmanaged[Cdecl]<nint, double> Core_GetCPULoad { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> Core_GetCurrentProcessRamUsage { get; }
         public delegate* unmanaged[Cdecl]<nint, Vector2*, byte, void> Core_GetCursorPos { get; }
         public delegate* unmanaged[Cdecl]<nint, nint> Core_GetDiscordUser { get; }
         public delegate* unmanaged[Cdecl]<nint, byte*, nint> Core_GetFocusOverrideEntity { get; }
@@ -165,6 +167,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, nint, uint> Core_GetPoolCount { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, nint*, uint*, void> Core_GetPoolEntities { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, uint> Core_GetPoolSize { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> Core_GetRAMUsage { get; }
         public delegate* unmanaged[Cdecl]<nint, Vector2*, void> Core_GetScreenResolution { get; }
         public delegate* unmanaged[Cdecl]<nint, int*, nint> Core_GetServerIp { get; }
         public delegate* unmanaged[Cdecl]<nint, ushort> Core_GetServerPort { get; }
@@ -182,6 +185,8 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, nint, byte> Core_GetStatUInt8 { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> Core_GetTotalPacketsLost { get; }
         public delegate* unmanaged[Cdecl]<nint, ulong> Core_GetTotalPacketsSent { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> Core_GetTotalRAM { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> Core_GetVideoMemoryUsage { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> Core_GetVoiceActivationKey { get; }
         public delegate* unmanaged[Cdecl]<nint, float> Core_GetVoiceActivationLevel { get; }
         public delegate* unmanaged[Cdecl]<nint, uint, nint> Core_GetVoiceFilter { get; }
@@ -927,7 +932,7 @@ namespace AltV.Net.CApi.Libraries
 
     public unsafe class ClientLibrary : IClientLibrary
     {
-        public readonly uint Methods = 1814;
+        public readonly uint Methods = 1819;
         public delegate* unmanaged[Cdecl]<nint, nint, void> Audio_AddOutput { get; }
         public delegate* unmanaged[Cdecl]<nint, nint> Audio_GetBaseObject { get; }
         public delegate* unmanaged[Cdecl]<nint, double> Audio_GetCurrentTime { get; }
@@ -1060,6 +1065,8 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, uint, nint> Core_GetCheckpointByGameID { get; }
         public delegate* unmanaged[Cdecl]<nint, int*, nint> Core_GetClientPath { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, byte> Core_GetConfigFlag { get; }
+        public delegate* unmanaged[Cdecl]<nint, double> Core_GetCPULoad { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> Core_GetCurrentProcessRamUsage { get; }
         public delegate* unmanaged[Cdecl]<nint, Vector2*, byte, void> Core_GetCursorPos { get; }
         public delegate* unmanaged[Cdecl]<nint, nint> Core_GetDiscordUser { get; }
         public delegate* unmanaged[Cdecl]<nint, byte*, nint> Core_GetFocusOverrideEntity { get; }
@@ -1082,6 +1089,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, nint, uint> Core_GetPoolCount { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, nint*, uint*, void> Core_GetPoolEntities { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, uint> Core_GetPoolSize { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> Core_GetRAMUsage { get; }
         public delegate* unmanaged[Cdecl]<nint, Vector2*, void> Core_GetScreenResolution { get; }
         public delegate* unmanaged[Cdecl]<nint, int*, nint> Core_GetServerIp { get; }
         public delegate* unmanaged[Cdecl]<nint, ushort> Core_GetServerPort { get; }
@@ -1099,6 +1107,8 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, nint, byte> Core_GetStatUInt8 { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> Core_GetTotalPacketsLost { get; }
         public delegate* unmanaged[Cdecl]<nint, ulong> Core_GetTotalPacketsSent { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> Core_GetTotalRAM { get; }
+        public delegate* unmanaged[Cdecl]<nint, uint> Core_GetVideoMemoryUsage { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> Core_GetVoiceActivationKey { get; }
         public delegate* unmanaged[Cdecl]<nint, float> Core_GetVoiceActivationLevel { get; }
         public delegate* unmanaged[Cdecl]<nint, uint, nint> Core_GetVoiceFilter { get; }
@@ -2104,6 +2114,10 @@ namespace AltV.Net.CApi.Libraries
         private static nint Core_GetClientPathFallback(nint _core, int* _size) => throw new Exceptions.OutdatedSdkException("Core_GetClientPath", "Core_GetClientPath SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Core_GetConfigFlagDelegate(nint _core, nint _flag);
         private static byte Core_GetConfigFlagFallback(nint _core, nint _flag) => throw new Exceptions.OutdatedSdkException("Core_GetConfigFlag", "Core_GetConfigFlag SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate double Core_GetCPULoadDelegate(nint _core);
+        private static double Core_GetCPULoadFallback(nint _core) => throw new Exceptions.OutdatedSdkException("Core_GetCPULoad", "Core_GetCPULoad SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint Core_GetCurrentProcessRamUsageDelegate(nint _core);
+        private static uint Core_GetCurrentProcessRamUsageFallback(nint _core) => throw new Exceptions.OutdatedSdkException("Core_GetCurrentProcessRamUsage", "Core_GetCurrentProcessRamUsage SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Core_GetCursorPosDelegate(nint _core, Vector2* _out, byte _normalized);
         private static void Core_GetCursorPosFallback(nint _core, Vector2* _out, byte _normalized) => throw new Exceptions.OutdatedSdkException("Core_GetCursorPos", "Core_GetCursorPos SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate nint Core_GetDiscordUserDelegate(nint _core);
@@ -2148,6 +2162,8 @@ namespace AltV.Net.CApi.Libraries
         private static void Core_GetPoolEntitiesFallback(nint _core, nint _pool, nint* _poolEntities, uint* _size) => throw new Exceptions.OutdatedSdkException("Core_GetPoolEntities", "Core_GetPoolEntities SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint Core_GetPoolSizeDelegate(nint _core, nint _pool);
         private static uint Core_GetPoolSizeFallback(nint _core, nint _pool) => throw new Exceptions.OutdatedSdkException("Core_GetPoolSize", "Core_GetPoolSize SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint Core_GetRAMUsageDelegate(nint _core);
+        private static uint Core_GetRAMUsageFallback(nint _core) => throw new Exceptions.OutdatedSdkException("Core_GetRAMUsage", "Core_GetRAMUsage SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Core_GetScreenResolutionDelegate(nint _core, Vector2* _out);
         private static void Core_GetScreenResolutionFallback(nint _core, Vector2* _out) => throw new Exceptions.OutdatedSdkException("Core_GetScreenResolution", "Core_GetScreenResolution SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate nint Core_GetServerIpDelegate(nint _core, int* _size);
@@ -2182,6 +2198,10 @@ namespace AltV.Net.CApi.Libraries
         private static uint Core_GetTotalPacketsLostFallback(nint _core) => throw new Exceptions.OutdatedSdkException("Core_GetTotalPacketsLost", "Core_GetTotalPacketsLost SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate ulong Core_GetTotalPacketsSentDelegate(nint _core);
         private static ulong Core_GetTotalPacketsSentFallback(nint _core) => throw new Exceptions.OutdatedSdkException("Core_GetTotalPacketsSent", "Core_GetTotalPacketsSent SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint Core_GetTotalRAMDelegate(nint _core);
+        private static uint Core_GetTotalRAMFallback(nint _core) => throw new Exceptions.OutdatedSdkException("Core_GetTotalRAM", "Core_GetTotalRAM SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint Core_GetVideoMemoryUsageDelegate(nint _core);
+        private static uint Core_GetVideoMemoryUsageFallback(nint _core) => throw new Exceptions.OutdatedSdkException("Core_GetVideoMemoryUsage", "Core_GetVideoMemoryUsage SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate uint Core_GetVoiceActivationKeyDelegate(nint _core);
         private static uint Core_GetVoiceActivationKeyFallback(nint _core) => throw new Exceptions.OutdatedSdkException("Core_GetVoiceActivationKey", "Core_GetVoiceActivationKey SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate float Core_GetVoiceActivationLevelDelegate(nint _core);
@@ -3673,7 +3693,7 @@ namespace AltV.Net.CApi.Libraries
         public ClientLibrary(Dictionary<ulong, IntPtr> funcTable)
         {
             if (!funcTable.TryGetValue(0, out var capiHash)) Outdated = true;
-            else if (capiHash == IntPtr.Zero || *(ulong*)capiHash != 1842878650442980314UL) Outdated = true;
+            else if (capiHash == IntPtr.Zero || *(ulong*)capiHash != 13320815252852565467UL) Outdated = true;
             Audio_AddOutput = (delegate* unmanaged[Cdecl]<nint, nint, void>) GetUnmanagedPtr<Audio_AddOutputDelegate>(funcTable, 9914412815391408844UL, Audio_AddOutputFallback);
             Audio_GetBaseObject = (delegate* unmanaged[Cdecl]<nint, nint>) GetUnmanagedPtr<Audio_GetBaseObjectDelegate>(funcTable, 6330360502401226894UL, Audio_GetBaseObjectFallback);
             Audio_GetCurrentTime = (delegate* unmanaged[Cdecl]<nint, double>) GetUnmanagedPtr<Audio_GetCurrentTimeDelegate>(funcTable, 2944324482134975819UL, Audio_GetCurrentTimeFallback);
@@ -3806,6 +3826,8 @@ namespace AltV.Net.CApi.Libraries
             Core_GetCheckpointByGameID = (delegate* unmanaged[Cdecl]<nint, uint, nint>) GetUnmanagedPtr<Core_GetCheckpointByGameIDDelegate>(funcTable, 17443733140958323295UL, Core_GetCheckpointByGameIDFallback);
             Core_GetClientPath = (delegate* unmanaged[Cdecl]<nint, int*, nint>) GetUnmanagedPtr<Core_GetClientPathDelegate>(funcTable, 10032718746164771334UL, Core_GetClientPathFallback);
             Core_GetConfigFlag = (delegate* unmanaged[Cdecl]<nint, nint, byte>) GetUnmanagedPtr<Core_GetConfigFlagDelegate>(funcTable, 9388016697579829930UL, Core_GetConfigFlagFallback);
+            Core_GetCPULoad = (delegate* unmanaged[Cdecl]<nint, double>) GetUnmanagedPtr<Core_GetCPULoadDelegate>(funcTable, 17433238533551340777UL, Core_GetCPULoadFallback);
+            Core_GetCurrentProcessRamUsage = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<Core_GetCurrentProcessRamUsageDelegate>(funcTable, 11057751060762142005UL, Core_GetCurrentProcessRamUsageFallback);
             Core_GetCursorPos = (delegate* unmanaged[Cdecl]<nint, Vector2*, byte, void>) GetUnmanagedPtr<Core_GetCursorPosDelegate>(funcTable, 15134150969197995835UL, Core_GetCursorPosFallback);
             Core_GetDiscordUser = (delegate* unmanaged[Cdecl]<nint, nint>) GetUnmanagedPtr<Core_GetDiscordUserDelegate>(funcTable, 18034315400823009421UL, Core_GetDiscordUserFallback);
             Core_GetFocusOverrideEntity = (delegate* unmanaged[Cdecl]<nint, byte*, nint>) GetUnmanagedPtr<Core_GetFocusOverrideEntityDelegate>(funcTable, 16108636330639358203UL, Core_GetFocusOverrideEntityFallback);
@@ -3828,6 +3850,7 @@ namespace AltV.Net.CApi.Libraries
             Core_GetPoolCount = (delegate* unmanaged[Cdecl]<nint, nint, uint>) GetUnmanagedPtr<Core_GetPoolCountDelegate>(funcTable, 10058355141969516360UL, Core_GetPoolCountFallback);
             Core_GetPoolEntities = (delegate* unmanaged[Cdecl]<nint, nint, nint*, uint*, void>) GetUnmanagedPtr<Core_GetPoolEntitiesDelegate>(funcTable, 5989408698388544472UL, Core_GetPoolEntitiesFallback);
             Core_GetPoolSize = (delegate* unmanaged[Cdecl]<nint, nint, uint>) GetUnmanagedPtr<Core_GetPoolSizeDelegate>(funcTable, 3048778071876483320UL, Core_GetPoolSizeFallback);
+            Core_GetRAMUsage = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<Core_GetRAMUsageDelegate>(funcTable, 4140657370908896331UL, Core_GetRAMUsageFallback);
             Core_GetScreenResolution = (delegate* unmanaged[Cdecl]<nint, Vector2*, void>) GetUnmanagedPtr<Core_GetScreenResolutionDelegate>(funcTable, 16078537130538515891UL, Core_GetScreenResolutionFallback);
             Core_GetServerIp = (delegate* unmanaged[Cdecl]<nint, int*, nint>) GetUnmanagedPtr<Core_GetServerIpDelegate>(funcTable, 1389091625205062844UL, Core_GetServerIpFallback);
             Core_GetServerPort = (delegate* unmanaged[Cdecl]<nint, ushort>) GetUnmanagedPtr<Core_GetServerPortDelegate>(funcTable, 14148467334937601992UL, Core_GetServerPortFallback);
@@ -3845,6 +3868,8 @@ namespace AltV.Net.CApi.Libraries
             Core_GetStatUInt8 = (delegate* unmanaged[Cdecl]<nint, nint, byte>) GetUnmanagedPtr<Core_GetStatUInt8Delegate>(funcTable, 14377981926026585630UL, Core_GetStatUInt8Fallback);
             Core_GetTotalPacketsLost = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<Core_GetTotalPacketsLostDelegate>(funcTable, 6512224235646012609UL, Core_GetTotalPacketsLostFallback);
             Core_GetTotalPacketsSent = (delegate* unmanaged[Cdecl]<nint, ulong>) GetUnmanagedPtr<Core_GetTotalPacketsSentDelegate>(funcTable, 16154816553672886942UL, Core_GetTotalPacketsSentFallback);
+            Core_GetTotalRAM = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<Core_GetTotalRAMDelegate>(funcTable, 12381751684834587200UL, Core_GetTotalRAMFallback);
+            Core_GetVideoMemoryUsage = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<Core_GetVideoMemoryUsageDelegate>(funcTable, 3460591725549442471UL, Core_GetVideoMemoryUsageFallback);
             Core_GetVoiceActivationKey = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<Core_GetVoiceActivationKeyDelegate>(funcTable, 2249875648683273533UL, Core_GetVoiceActivationKeyFallback);
             Core_GetVoiceActivationLevel = (delegate* unmanaged[Cdecl]<nint, float>) GetUnmanagedPtr<Core_GetVoiceActivationLevelDelegate>(funcTable, 14311678038566163090UL, Core_GetVoiceActivationLevelFallback);
             Core_GetVoiceFilter = (delegate* unmanaged[Cdecl]<nint, uint, nint>) GetUnmanagedPtr<Core_GetVoiceFilterDelegate>(funcTable, 15381961310249968205UL, Core_GetVoiceFilterFallback);

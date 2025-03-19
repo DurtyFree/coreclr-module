@@ -756,6 +756,61 @@ namespace AltV.Net.Client
             }
         }
 
+        public double CpuLoad
+        {
+            get
+            {
+                unsafe
+                {
+                    return Library.Client.Core_GetCPULoad(NativePointer);
+                }
+            }
+        }
+
+        public uint VideoMemoryUsage
+        {
+            get
+            {
+                unsafe
+                {
+                    return Library.Client.Core_GetVideoMemoryUsage(NativePointer);
+                }
+            }
+        }
+
+        public uint RamUsage
+        {
+            get
+            {
+                unsafe
+                {
+                    return Library.Client.Core_GetRAMUsage(NativePointer);
+                }
+            }
+        }
+
+        public uint TotalRam
+        {
+            get
+            {
+                unsafe
+                {
+                    return Library.Client.Core_GetTotalRAM(NativePointer);
+                }
+            }
+        }
+        
+        public uint CurrentProcessRamUsage
+        {
+            get
+            {
+                unsafe
+                {
+                    return Library.Client.Core_GetCurrentProcessRamUsage(NativePointer);
+                }
+            }
+        }
+
         #endregion
 
         #region TriggerServerEvent

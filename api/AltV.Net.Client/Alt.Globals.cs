@@ -122,5 +122,10 @@ namespace AltV.Net.Client
         public static ulong ServerTime => CoreImpl.ServerTime;
 
         public static bool ReloadVehiclePhysics(uint modelHash) => CoreImpl.ReloadVehiclePhysics(modelHash);
+        public static double CpuLoad => CoreImpl.CpuLoad;
+        public static uint VideoMemoryUsage => CoreImpl.VideoMemoryUsage;
+        public static uint RamUsage => CoreImpl.RamUsage;
+        public static uint TotalRam => CoreImpl.TotalRam;
+        public static uint CurrentProcessRamUsage => CoreImpl.CurrentProcessRamUsage;
     }
 }

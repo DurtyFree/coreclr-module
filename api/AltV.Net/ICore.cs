@@ -119,8 +119,8 @@ namespace AltV.Net
         ushort TriggerClientRPC(IPlayer target, string eventName, MValueConst[] args);
         ushort TriggerClientRPC(IPlayer target, IntPtr eventNamePtr, MValueConst[] args);
 
-        IVehicle CreateVehicle(uint model, Position pos, Rotation rotation, uint streamingDistance);
-        IPed CreatePed(uint model, Position pos, Rotation rotation, uint streamingDistance);
+        IVehicle CreateVehicle(uint model, Position pos, Rotation rotation, uint streamingDistance, bool isStatic = false);
+        IPed CreatePed(uint model, Position pos, Rotation rotation, uint streamingDistance, bool isStatic = false);
 
         ICheckpoint CreateCheckpoint(byte type, Position pos, float radius, float height, Rgba color, uint streamingDistance);
 
@@ -149,7 +149,7 @@ namespace AltV.Net
 
         // Only for advanced use cases
 
-        IntPtr CreateVehicleEntity(out uint id, uint model, Position pos, Rotation rotation, uint streamingDistance);
+        IntPtr CreateVehicleEntity(out uint id, uint model, Position pos, Rotation rotation, uint streamingDistance, bool isStatic = false);
 
         IReadOnlyCollection<IPlayer> GetAllPlayers();
         IReadOnlyCollection<IVehicle> GetAllVehicles();
@@ -193,7 +193,7 @@ namespace AltV.Net
         IMetric RegisterMetric(string name, MetricType type = MetricType.MetricTypeGauge, Dictionary<string, string> dataDict = default);
         void UnregisterMetric(IMetric metric);
         IMarker CreateMarker(IPlayer player, MarkerType type, Position pos, Rgba color);
-        IObject CreateObject(uint hash, Position position, Rotation rotation, byte alpha, byte textureVariation, ushort lodDistance, uint streamingDistance);
+        IObject CreateObject(uint hash, Position position, Rotation rotation, byte alpha, byte textureVariation, ushort lodDistance, uint streamingDistance, bool isStatic = false);
         IVirtualEntityGroup CreateVirtualEntityGroup(uint streamingDistance);
         IVirtualEntity CreateVirtualEntity(IVirtualEntityGroup group, Position position, uint streamingDistance, Dictionary<string, object> dataDict);
 

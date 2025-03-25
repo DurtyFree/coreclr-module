@@ -18,6 +18,7 @@ on:
     #   - '!docs/build.*'
     #   - '!docs/.gitignore'
 jobs:
+  if: false
   docs:
     name: Update documentation
     runs-on: ubuntu-latest

@@ -233,6 +233,11 @@ namespace AltV.Net.Client
         ulong ServerTime { get; }
 
         bool ReloadVehiclePhysics(uint modelHash);
+        double CpuLoad { get; }
+        uint VideoMemoryUsage { get; }
+        uint RamUsage { get; }
+        uint TotalRam { get; }
+        uint CurrentProcessRamUsage { get; }
         List<SafeTimer> RunningTimers { get; }
         Interior GetInterior(uint interiorId);
     }

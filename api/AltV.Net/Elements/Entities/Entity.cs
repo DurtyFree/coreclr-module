@@ -316,6 +316,26 @@ namespace AltV.Net.Elements.Entities
             }
         }
 
+        public bool IsStaticEntity
+        {
+            get
+            {
+                CheckIfEntityExistsOrCached();
+                unsafe
+                {
+                    return Core.Library.Shared.Entity_IsStaticEntity(EntityNativePointer) == 1;
+                }
+            }
+            set
+            {
+                CheckIfEntityExists();
+                unsafe
+                {
+                    Core.Library.Server.Entity_SetStaticEntity(EntityNativePointer, value ? (byte)1 : (byte)0);
+                }
+            }
+        }
+
         public bool Collision
         {
             get

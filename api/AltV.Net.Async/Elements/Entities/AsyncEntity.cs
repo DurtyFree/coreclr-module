@@ -322,6 +322,26 @@ namespace AltV.Net.Async.Elements.Entities
             }
         }
 
+        public bool IsStaticEntity
+        {
+            get
+            {
+                lock (Entity)
+                {
+                    if (!AsyncContext.CheckIfExistsOrCachedNullable(Entity)) return default;
+                    return Entity.IsStaticEntity;
+                }
+            }
+            set
+            {
+                lock (Entity)
+                {
+                    if (!AsyncContext.CheckIfExistsNullable(Entity)) return;
+                    Entity.IsStaticEntity = value;
+                }
+            }
+        }
+
         public bool Collision
         {
             get

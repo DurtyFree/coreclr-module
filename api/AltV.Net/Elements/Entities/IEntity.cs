@@ -96,5 +96,7 @@ namespace AltV.Net.Elements.Entities
         uint Timestamp { get; }
 
         uint StreamingDistance { get; set; }
+
+        new bool IsStaticEntity { get; set; }
     }
 }

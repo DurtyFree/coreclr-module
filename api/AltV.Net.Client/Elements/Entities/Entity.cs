@@ -203,6 +203,18 @@ namespace AltV.Net.Client.Elements.Entities
             }
         }
 
+        public bool IsStaticEntity
+        {
+            get
+            {
+                unsafe
+                {
+                    CheckIfEntityExistsOrCached();
+                    return Core.Library.Shared.Entity_IsStaticEntity(EntityNativePointer) == 1;
+                }
+            }
+        }
+
         public override void CheckIfEntityExists()
         {
             CheckIfCallIsValid();

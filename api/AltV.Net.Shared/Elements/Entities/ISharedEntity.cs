@@ -64,5 +64,7 @@ namespace AltV.Net.Shared.Elements.Entities
         /// </summary>
         /// <exception cref="EntityRemovedException">This entity was removed</exception>
         bool Frozen { get; set; }
+        
+        bool IsStaticEntity { get; }
     }
 }

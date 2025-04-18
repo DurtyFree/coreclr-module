@@ -127,5 +127,8 @@ namespace AltV.Net.Client
         public static uint RamUsage => CoreImpl.RamUsage;
         public static uint TotalRam => CoreImpl.TotalRam;
         public static uint CurrentProcessRamUsage => CoreImpl.CurrentProcessRamUsage;
+        
+        public static void SetIMDepthTesting(bool state) => CoreImpl.SetIMDepthTesting(state);
+        public static void DrawSphere(Position center, float radius, Rgba color, int segments) => CoreImpl.DrawSphere(center, radius, color, segments);
     }
 }

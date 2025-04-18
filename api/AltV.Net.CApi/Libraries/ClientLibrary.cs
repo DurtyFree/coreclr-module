@@ -133,6 +133,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, void> Core_DeallocDiscordUser { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, ClientEvents.DiscordOAuth2TokenResultModuleDelegate, void> Core_Discord_GetOAuth2Token { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, byte> Core_DoesConfigFlagExist { get; }
+        public delegate* unmanaged[Cdecl]<nint, Vector3, float, Rgba, int, void> Core_DrawSphere { get; }
         public delegate* unmanaged[Cdecl]<nint, uint[], ulong, void> Core_GetAllWeaponData { get; }
         public delegate* unmanaged[Cdecl]<nint, ulong> Core_GetAllWeaponDataCount { get; }
         public delegate* unmanaged[Cdecl]<nint, ulong> Core_GetAudioCount { get; }
@@ -237,6 +238,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, byte, void> Core_SetCamFrozen { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, byte, void> Core_SetConfigFlag { get; }
         public delegate* unmanaged[Cdecl]<nint, Vector2, byte, void> Core_SetCursorPos { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, void> Core_SetIMDepthTesting { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, byte, byte, float, float, float, float, void> Core_SetMinimapComponentPosition { get; }
         public delegate* unmanaged[Cdecl]<nint, byte, void> Core_SetMinimapIsRectangle { get; }
         public delegate* unmanaged[Cdecl]<nint, int, void> Core_SetMsPerGameMinute { get; }
@@ -932,7 +934,7 @@ namespace AltV.Net.CApi.Libraries
 
     public unsafe class ClientLibrary : IClientLibrary
     {
-        public readonly uint Methods = 1821;
+        public readonly uint Methods = 1823;
         public delegate* unmanaged[Cdecl]<nint, nint, void> Audio_AddOutput { get; }
         public delegate* unmanaged[Cdecl]<nint, nint> Audio_GetBaseObject { get; }
         public delegate* unmanaged[Cdecl]<nint, double> Audio_GetCurrentTime { get; }
@@ -1055,6 +1057,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, void> Core_DeallocDiscordUser { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, ClientEvents.DiscordOAuth2TokenResultModuleDelegate, void> Core_Discord_GetOAuth2Token { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, byte> Core_DoesConfigFlagExist { get; }
+        public delegate* unmanaged[Cdecl]<nint, Vector3, float, Rgba, int, void> Core_DrawSphere { get; }
         public delegate* unmanaged[Cdecl]<nint, uint[], ulong, void> Core_GetAllWeaponData { get; }
         public delegate* unmanaged[Cdecl]<nint, ulong> Core_GetAllWeaponDataCount { get; }
         public delegate* unmanaged[Cdecl]<nint, ulong> Core_GetAudioCount { get; }
@@ -1159,6 +1162,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, byte, void> Core_SetCamFrozen { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, byte, void> Core_SetConfigFlag { get; }
         public delegate* unmanaged[Cdecl]<nint, Vector2, byte, void> Core_SetCursorPos { get; }
+        public delegate* unmanaged[Cdecl]<nint, byte, void> Core_SetIMDepthTesting { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, byte, byte, float, float, float, float, void> Core_SetMinimapComponentPosition { get; }
         public delegate* unmanaged[Cdecl]<nint, byte, void> Core_SetMinimapIsRectangle { get; }
         public delegate* unmanaged[Cdecl]<nint, int, void> Core_SetMsPerGameMinute { get; }
@@ -2094,6 +2098,8 @@ namespace AltV.Net.CApi.Libraries
         private static void Core_Discord_GetOAuth2TokenFallback(nint _core, nint _appId, ClientEvents.DiscordOAuth2TokenResultModuleDelegate _delegate) => throw new Exceptions.OutdatedSdkException("Core_Discord_GetOAuth2Token", "Core_Discord_GetOAuth2Token SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate byte Core_DoesConfigFlagExistDelegate(nint _core, nint _flag);
         private static byte Core_DoesConfigFlagExistFallback(nint _core, nint _flag) => throw new Exceptions.OutdatedSdkException("Core_DoesConfigFlagExist", "Core_DoesConfigFlagExist SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Core_DrawSphereDelegate(nint _core, Vector3 _center, float _radius, Rgba _color, int _segments);
+        private static void Core_DrawSphereFallback(nint _core, Vector3 _center, float _radius, Rgba _color, int _segments) => throw new Exceptions.OutdatedSdkException("Core_DrawSphere", "Core_DrawSphere SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Core_GetAllWeaponDataDelegate(nint _core, uint[] weaponHashes, ulong _size);
         private static void Core_GetAllWeaponDataFallback(nint _core, uint[] weaponHashes, ulong _size) => throw new Exceptions.OutdatedSdkException("Core_GetAllWeaponData", "Core_GetAllWeaponData SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate ulong Core_GetAllWeaponDataCountDelegate(nint _core);
@@ -2302,6 +2308,8 @@ namespace AltV.Net.CApi.Libraries
         private static void Core_SetConfigFlagFallback(nint _core, nint _flag, byte _state) => throw new Exceptions.OutdatedSdkException("Core_SetConfigFlag", "Core_SetConfigFlag SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Core_SetCursorPosDelegate(nint _core, Vector2 _pos, byte _normalized);
         private static void Core_SetCursorPosFallback(nint _core, Vector2 _pos, byte _normalized) => throw new Exceptions.OutdatedSdkException("Core_SetCursorPos", "Core_SetCursorPos SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Core_SetIMDepthTestingDelegate(nint _core, byte _state);
+        private static void Core_SetIMDepthTestingFallback(nint _core, byte _state) => throw new Exceptions.OutdatedSdkException("Core_SetIMDepthTesting", "Core_SetIMDepthTesting SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Core_SetMinimapComponentPositionDelegate(nint _core, nint _name, byte _alignX, byte _alignY, float _posX, float _posY, float _sizeX, float _sizeY);
         private static void Core_SetMinimapComponentPositionFallback(nint _core, nint _name, byte _alignX, byte _alignY, float _posX, float _posY, float _sizeX, float _sizeY) => throw new Exceptions.OutdatedSdkException("Core_SetMinimapComponentPosition", "Core_SetMinimapComponentPosition SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Core_SetMinimapIsRectangleDelegate(nint _core, byte _state);
@@ -3693,7 +3701,7 @@ namespace AltV.Net.CApi.Libraries
         public ClientLibrary(Dictionary<ulong, IntPtr> funcTable)
         {
             if (!funcTable.TryGetValue(0, out var capiHash)) Outdated = true;
-            else if (capiHash == IntPtr.Zero || *(ulong*)capiHash != 13355773337791499424UL) Outdated = true;
+            else if (capiHash == IntPtr.Zero || *(ulong*)capiHash != 112780170120234326UL) Outdated = true;
             Audio_AddOutput = (delegate* unmanaged[Cdecl]<nint, nint, void>) GetUnmanagedPtr<Audio_AddOutputDelegate>(funcTable, 9914412815391408844UL, Audio_AddOutputFallback);
             Audio_GetBaseObject = (delegate* unmanaged[Cdecl]<nint, nint>) GetUnmanagedPtr<Audio_GetBaseObjectDelegate>(funcTable, 6330360502401226894UL, Audio_GetBaseObjectFallback);
             Audio_GetCurrentTime = (delegate* unmanaged[Cdecl]<nint, double>) GetUnmanagedPtr<Audio_GetCurrentTimeDelegate>(funcTable, 2944324482134975819UL, Audio_GetCurrentTimeFallback);
@@ -3816,6 +3824,7 @@ namespace AltV.Net.CApi.Libraries
             Core_DeallocDiscordUser = (delegate* unmanaged[Cdecl]<nint, void>) GetUnmanagedPtr<Core_DeallocDiscordUserDelegate>(funcTable, 1212339219242517554UL, Core_DeallocDiscordUserFallback);
             Core_Discord_GetOAuth2Token = (delegate* unmanaged[Cdecl]<nint, nint, ClientEvents.DiscordOAuth2TokenResultModuleDelegate, void>) GetUnmanagedPtr<Core_Discord_GetOAuth2TokenDelegate>(funcTable, 11971296438427190394UL, Core_Discord_GetOAuth2TokenFallback);
             Core_DoesConfigFlagExist = (delegate* unmanaged[Cdecl]<nint, nint, byte>) GetUnmanagedPtr<Core_DoesConfigFlagExistDelegate>(funcTable, 2905154853369701790UL, Core_DoesConfigFlagExistFallback);
+            Core_DrawSphere = (delegate* unmanaged[Cdecl]<nint, Vector3, float, Rgba, int, void>) GetUnmanagedPtr<Core_DrawSphereDelegate>(funcTable, 18244746230679490050UL, Core_DrawSphereFallback);
             Core_GetAllWeaponData = (delegate* unmanaged[Cdecl]<nint, uint[], ulong, void>) GetUnmanagedPtr<Core_GetAllWeaponDataDelegate>(funcTable, 17040861123821249134UL, Core_GetAllWeaponDataFallback);
             Core_GetAllWeaponDataCount = (delegate* unmanaged[Cdecl]<nint, ulong>) GetUnmanagedPtr<Core_GetAllWeaponDataCountDelegate>(funcTable, 10675436726413059015UL, Core_GetAllWeaponDataCountFallback);
             Core_GetAudioCount = (delegate* unmanaged[Cdecl]<nint, ulong>) GetUnmanagedPtr<Core_GetAudioCountDelegate>(funcTable, 18419578908798121866UL, Core_GetAudioCountFallback);
@@ -3920,6 +3929,7 @@ namespace AltV.Net.CApi.Libraries
             Core_SetCamFrozen = (delegate* unmanaged[Cdecl]<nint, byte, void>) GetUnmanagedPtr<Core_SetCamFrozenDelegate>(funcTable, 2415100583194488559UL, Core_SetCamFrozenFallback);
             Core_SetConfigFlag = (delegate* unmanaged[Cdecl]<nint, nint, byte, void>) GetUnmanagedPtr<Core_SetConfigFlagDelegate>(funcTable, 9549326506872223025UL, Core_SetConfigFlagFallback);
             Core_SetCursorPos = (delegate* unmanaged[Cdecl]<nint, Vector2, byte, void>) GetUnmanagedPtr<Core_SetCursorPosDelegate>(funcTable, 9986862625405376281UL, Core_SetCursorPosFallback);
+            Core_SetIMDepthTesting = (delegate* unmanaged[Cdecl]<nint, byte, void>) GetUnmanagedPtr<Core_SetIMDepthTestingDelegate>(funcTable, 9924768457114685689UL, Core_SetIMDepthTestingFallback);
             Core_SetMinimapComponentPosition = (delegate* unmanaged[Cdecl]<nint, nint, byte, byte, float, float, float, float, void>) GetUnmanagedPtr<Core_SetMinimapComponentPositionDelegate>(funcTable, 14327556077081423510UL, Core_SetMinimapComponentPositionFallback);
             Core_SetMinimapIsRectangle = (delegate* unmanaged[Cdecl]<nint, byte, void>) GetUnmanagedPtr<Core_SetMinimapIsRectangleDelegate>(funcTable, 16400827921977308918UL, Core_SetMinimapIsRectangleFallback);
             Core_SetMsPerGameMinute = (delegate* unmanaged[Cdecl]<nint, int, void>) GetUnmanagedPtr<Core_SetMsPerGameMinuteDelegate>(funcTable, 18167344434001544403UL, Core_SetMsPerGameMinuteFallback);

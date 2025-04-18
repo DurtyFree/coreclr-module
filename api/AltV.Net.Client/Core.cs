@@ -267,6 +267,22 @@ namespace AltV.Net.Client
             return new Interior(this, interiorId);
         }
 
+        public void SetIMDepthTesting(bool state)
+        {
+            unsafe
+            {
+                Library.Client.Core_SetIMDepthTesting(NativePointer, state ? (byte)1: (byte)0);
+            }
+        }
+
+        public void DrawSphere(Position center, float radius, Rgba color, int segments)
+        {
+            unsafe
+            {
+                Library.Client.Core_DrawSphere(NativePointer, center, radius, color, segments);
+            }
+        }
+
         public AudioCategory GetAudioCategoryByName(string audioCategory)
         {
             return new AudioCategory(this, audioCategory);
@@ -810,6 +826,8 @@ namespace AltV.Net.Client
                 }
             }
         }
+        
+        
 
         #endregion
 

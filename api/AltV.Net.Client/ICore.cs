@@ -240,5 +240,8 @@ namespace AltV.Net.Client
         uint CurrentProcessRamUsage { get; }
         List<SafeTimer> RunningTimers { get; }
         Interior GetInterior(uint interiorId);
+
+        void SetIMDepthTesting(bool state);
+        void DrawSphere(Position center, float radius, Rgba color, int segments);
     }
 }
